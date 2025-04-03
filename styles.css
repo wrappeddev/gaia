@@ -1,1 +1,219 @@
+html {
+    background-color: black;
+}
+
+.navbar-container-bottom {
+    background-color: transparent;
+    height: 100vh;
+    width: 360px;
+    margin-left: 24px;
+    justify-content: center;
+    display: flex;
+}
+
+.navbar-menu {
+    background-color: #AFE69B;
+    height: 60px;
+    width: 360px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.menu {
+    vertical-align: middle;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: black;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+
+.navbar-submenu-text {
+    vertical-align: middle;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: black;
+    background-color: #747474;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+
+.menu:hover {
+    cursor: pointer;
+}
+
+.navbar-menu-text-left {
+    text-align: left;
+}
+
+.menu-right {
+    text-align: right;
+}
+
+details {
+    width: 100%;
+}
+
+details > summary {
+    list-style: none;
+    width: 100%;
+    outline: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Main dropdown */
+.dropdown-content {
+    border-radius: 5px;
+    margin-top: 24px;
+    width: 360px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    z-index: 1;
+    flex-direction: column;
+    align-items: left;
+}
+
+details[open] > .dropdown-content {
+    display: flex;
+}
+
+details.sub1[open] > .navbar-subsubmenu-text {
+    display: flex;
+}
+
+.submenu-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: black;
+    background-color: #747474;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+
+.submenu-text {
+    margin-bottom: 6px;
+}
+
+.subalign-left {
+    text-align: left;
+}
+
+.subalign-right {
+    text-align: right;
+}
+
+/* Alignment classes */
+.navbar-menu-text-left, .subalign-left {
+    text-align: left;
+    justify-self: flex-start;
+    margin-right: auto;
+}
+
+.navbar-menu-text-right, .subalign-right {
+    text-align: right;
+    justify-self: flex-end;
+    margin-left: auto;
+}
+
+/* Ensure parent containers use flex for proper alignment */
+.navbar-menu-text, .navbar-submenu-text, .navbar-subsubmenu-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.submenu-text:hover {
+    cursor: pointer;
+}
+
+/* Hide subdropdown content by default */
+.subdropdown-content {
+    display: none;
+}
+
+/* Show subdropdown content only when parent details is open */
+details.submenu-details[open] > .subdropdown-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Hide subsubdropdown content by default */
+.subsubdropdown-content {
+    display: none;
+}
+
+/* Show subsubdropdown content only when parent details is open */
+details.subsubmenu-details[open] > .subsubdropdown-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for navbar-subsubmenu-text */
+.navbar-subsubmenu-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    background-color: #5a5a5a;
+    cursor: pointer;
+}
+
+.submenu-details{
+    margin-bottom: 12px;
+}
+
+.navbar-item-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    text-align: left;
+    color: white;
+    background-color: black;
+    border: 2px solid gold;
+    margin-bottom: 6px;
+    padding: 0 10px;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.navbar-item-text:first-of-type {
+    margin-top: 12px;
+}
+
+.navbar-subsubmenu-text:first-of-type {
+    margin-top: 12px;
+}
 
