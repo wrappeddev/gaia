@@ -45,12 +45,17 @@ html {
     font-size: 18px;
     color: black;
     background-color: #747474;
+    margin-bottom: 6px;
     display: flex;
     width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
     position: relative;
     height: 100%;
+}
+
+.navbar-submenu-text:first-of-type {
+    margin-top: 12px;
 }
 
 .menu:hover {
@@ -158,53 +163,40 @@ details.sub1[open] > .navbar-subsubmenu-text {
     display: none;
 }
 
-/* Show subdropdown content only when parent details is open */
+/* Show subdropdown content when parent details is open */
 details.submenu-details[open] > .subdropdown-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-/* Hide subsubdropdown content by default */
-.subsubdropdown-content {
-    display: none;
-}
-
-/* Show subsubdropdown content only when parent details is open */
-details.subsubmenu-details[open] > .subsubdropdown-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Style for navbar-subsubmenu-text */
-.navbar-subsubmenu-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
-    padding: 8px 10px;
-    box-sizing: border-box;
-    background-color: #5a5a5a;
-    cursor: pointer;
 }
 
-.submenu-details{
-    margin-bottom: 12px;
+/* Add some spacing between items */
+.subdropdown-content .navbar-item-text {
+    margin-top: 6px;
 }
 
+/* Add spacing for first item */
+.subdropdown-content .navbar-item-text:first-child {
+    margin-top: 12px;
+}
+
+/* Remove unused styles */
+.subsubmenu-details,
+.navbar-subsubmenu-text,
+.subsubdropdown-content {
+    /* These can be removed if not used elsewhere */
+}
+
+/* Style for navbar-item-text */
 .navbar-item-text {
     font-family: 'Playfair Display', serif;
     font-size: 16px;
     text-align: left;
-    color: white;
-    background-color: black;
-    border: 2px solid gold;
+    color: black;
+    background-color: #D1D1D1;
     margin-bottom: 6px;
-    padding: 0 10px;
+    padding: 8px 12px;
     width: 90%;
     box-sizing: border-box;
 }
@@ -216,4 +208,5 @@ details.subsubmenu-details[open] > .subsubdropdown-content {
 .navbar-subsubmenu-text:first-of-type {
     margin-top: 12px;
 }
+
 
