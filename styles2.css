@@ -1,0 +1,189 @@
+/* This will now work because the checkbox is a sibling of navbar-container-bottom */
+#navbar-toggle:checked ~ .navbar-container-bottom {
+    border-color: purple; /* Change only the border color */
+    width: 420px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-icon {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    margin-left: 6px;
+    color: white;
+    font-size: 36px;
+    cursor: pointer;
+    z-index: 100;
+
+    /* Prevent text selection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
+    /* Prevent touch highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Prevent focus outline */
+    outline: none;
+}
+
+.navbar-menu-head {
+    position: fixed;
+    top: 18px;
+    left: 60px;
+    margin-left: 6px;
+    font-size: 36px;
+    white-space: nowrap;
+    color: #AFE69B;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    cursor: default;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#navbar-toggle {
+    display: none;
+}
+
+#navbar-toggle:checked ~ .navbar-icon {
+    color: #FEE185;
+}
+
+/* Show the menu head when checkbox is checked */
+#navbar-toggle:checked ~ .navbar-menu-head {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-container-bottom {
+    background-color: transparent;
+    height: 90vh;
+    margin-top: 6px;
+    margin-left: 6px;
+    width: 360px;
+    justify-content: center;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+    border: 2px solid transparent; /* Add transparent border by default */
+    transition: opacity 0.3s ease, visibility 0.3s ease, border-color 0.3s ease, width 0.3s ease;
+}
+
+html {
+    background-color: black;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+/* For Firefox */
+html {
+    scrollbar-width: none;
+}
+
+/* For IE and Edge */
+html {
+    -ms-overflow-style: none;
+}
+
+/* Ensure body also has no scrollbar */
+body {
+    overflow: hidden; /* Option 1: Prevent scrolling completely */
+    /* OR */
+    overflow-y: scroll; /* Option 2: Allow scrolling but hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Adjust the navbar-menu container */
+.navbar-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 6vh; /* Add top padding instead of margin on summary */
+}
+
+.navbar-menu summary {
+    color: white;
+    font-size: 28px;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0; /* Remove the top margin */
+}
+
+/* Remove the dropdown arrow from details/summary */
+details > summary {
+    list-style: none;
+    outline: none;
+}
+
+/* For Webkit browsers (Chrome, Safari, etc.) */
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* For Firefox */
+details > summary {
+    display: block; /* Ensures proper layout */
+}
+
+/* For older browsers that might still show a marker */
+details > summary::marker {
+    display: none;
+    content: "";
+}
+
+.navbar-menu details {
+    margin-bottom: 24px;
+}
+
+.dropdown-content {
+    text-align: center;
+    text-decoration: none ;
+    font-size: 28px !important;
+    color: white;
+    margin-top: 12px;
+}
+
+summary {
+    text-align: center !important;
+}
+
+.navbar-menu .dropdown-content:nth-of-type(2) {
+    margin-top: 32px
+}
+.navbar-menu .dropdown-content:nth-of-type(3) {
+    margin-top: 32px
+}
+.navbar-menu .dropdown-content:nth-of-type(4) {
+    margin-top: 32px;
+}
+
+.line {
+    border-top: 1px solid #fad86a;
+    width: 90%;
+    margin-bottom: 12px;
+}
+
+.dropdown-content:hover {
+    color: #007bff !important;
+    text-decoration: underline !important;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
