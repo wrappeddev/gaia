@@ -36,6 +36,7 @@
     margin-left: 6px;
     font-size: 36px;
     white-space: nowrap;
+    background-color: black;
     color: #AFE69B;
     opacity: 0;
     visibility: hidden;
@@ -60,7 +61,7 @@
 
 .navbar-container-bottom {
     background-color: transparent;
-    height: 90vh;
+    height: 90%;
     margin-top: 6px;
     margin-left: 6px;
     width: 360px;
@@ -74,6 +75,50 @@
     z-index: 0;
     border: 2px solid transparent; /* Add transparent border by default */
     transition: opacity 0.3s ease, visibility 0.3s ease, border-color 0.3s ease, width 0.3s ease;
+    overflow-y: auto; /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    position: relative; /* Ensure pseudo-elements are positioned relative to this */
+}
+
+
+
+/* Adjust for mobile */
+@media (max-width: 768px) {
+    .navbar-container-bottom::before,
+    .navbar-container-bottom::after {
+        width: 70%; /* Match the width of navbar on mobile */
+        left: 10%; /* Center the fade effect */
+    }
+
+    /* Add fade-out effect at top and bottom of scrollable navbar */
+.navbar-container-bottom::before {
+    content: "";
+    position: fixed;
+    top: 16px;
+    left: 48px;
+    right: 0;
+    height: 90px; /* Height of the fade effect */
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 10; /* Ensure it's above the content */
+    }
+
+/* Bottom fade-out effect */
+.navbar-container-bottom::after {
+    content: "";
+    position: fixed;
+    left: 32px;
+    bottom: 0px;
+    right: 0;
+    height: 60px; /* Height of the fade effect */
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 10; /* Ensure it's above the content */
+    }
+
+    .navbar-menu{
+    padding-bottom: 2vh; /* Add bottom padding for scrolling space */
+    }
 }
 
 html {
@@ -114,6 +159,9 @@ body::-webkit-scrollbar {
     align-items: center;
     width: 100%;
     padding-top: 6vh; /* Add top padding instead of margin on summary */
+    padding-bottom: 2vh; /* Add bottom padding for scrolling space */
+    min-height: min-content; /* Ensure content can be smaller than container */
+     overscroll-behavior: none;
 }
 
 .navbar-menu summary {
@@ -186,4 +234,110 @@ summary {
     transform: scale(1.05);
     transition: all 0.2s ease;
     cursor: pointer;
+}
+
+summary, .dropdown-content, .navbar-menu-head {
+    /* Prevent text selection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
+    /* Prevent touch highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Prevent focus outline */
+    outline: none;
+}
+
+html, body {
+    overflow: hidden; /* Prevent scrolling on the main document */
+}
+
+@media (max-width: 768px) {
+    .navbar-container-bottom {
+        height: 99%;
+        max-height: 100vh; /* Ensure it doesn't exceed viewport height */
+        overflow-y: auto; /* Reinforce scrolling for mobile */
+    }
+
+    .navbar-menu {
+        width: 90%;
+        margin-top: 24px;
+        padding-bottom: 2vh; /* Add more padding at the bottom for mobile */
+    }
+
+    .navbar-menu-head {
+        font-size: 24px;
+        padding-right: 24px;
+    }
+    
+    .navbar-icon {
+        font-size: 24px;
+    }
+    
+    .dropdown-content {
+        font-size: 24px;
+    }
+    
+    summary {
+        font-size: 24px;
+    }
+    
+    .line {
+        width: 80%;
+    }
+    
+    .navbar-menu details {
+        margin-bottom: 16px;
+    }
+    
+    .navbar-menu .dropdown-content:nth-of-type(2) {
+        margin-top: 20px;
+    }
+    
+    .navbar-menu .dropdown-content:nth-of-type(3) {
+        margin-top: 20px;
+    }
+    
+    .navbar-menu .dropdown-content:nth-of-type(4) {
+        margin-top: 20px;
+    }
+
+    #navbar-toggle:checked ~ .navbar-container-bottom {
+        width: 95%
+    }
+}
+
+/* Prevent scrolling for a specific class */
+.navbar-container-bottom {
+    /* Existing styles... */
+    overflow: auto; /* Allow scrolling within the container */
+    overscroll-behavior: contain; /* Prevent scroll chaining to parent elements */
+}
+
+/* Prevent scrolling beyond the content */
+.navbar-menu {
+    /* Existing styles... */
+    overscroll-behavior: none; /* Prevent all overscroll behavior */
+}
+
+/* For mobile */
+@media (max-width: 768px) {
+    .navbar-container-bottom {
+        /* Existing styles... */
+        overscroll-behavior-y: contain; /* Specifically prevent vertical scroll chaining */
+    }
+    
+    /* Optional: If you want to completely disable scrolling for a specific element */
+    .no-scroll {
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+    }
+}
+
+/* Add this class to any element where you want to completely disable scrolling */
+.no-scroll {
+    overflow: hidden;
+    overscroll-behavior: none;
 }
