@@ -311,7 +311,8 @@ body {
 
 .content {
     flex: 1; /* Take remaining space */
-    padding: 2rem;
+    padding: 2.5rem 2rem; /* Original padding */
+    padding-right: 280px; /* Increased padding to accommodate gallery with padding */
     box-sizing: border-box;
     width: 100%;
     max-width: 1200px;
@@ -320,6 +321,9 @@ body {
     overflow-y: auto; /* Enable vertical scrolling */
     position: relative;
     z-index: 1;
+    display: flex; /* Add flex display */
+    flex-direction: column; /* Stack children vertically */
+    align-items: flex-start; /* Align children to the left */
 }
 
 /* Adjust for mobile */
@@ -607,6 +611,7 @@ details[open] summary::after {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    align-self: center;
 }
 
 .content-columns {
@@ -614,6 +619,8 @@ details[open] summary::after {
     flex-direction: row;
     gap: 2rem;
     margin-top: 2rem;
+    width: 100%; /* Ensure full width */
+    max-width: 100%; /* Use full available width */
 }
 
 .column {
@@ -636,7 +643,7 @@ details[open] summary::after {
 }
 
 .header h1 {
-    text-transform: uppercase;
+    text-align: center; /* Ensure header text is centered */
 }
 
 .header-line {
@@ -850,7 +857,7 @@ details[open] summary::after {
     flex-direction: column;
     height: calc(210px * 10); /* Height of images × number of images */
     animation: scrollVertical 30s linear infinite;
-    padding: 0 20px; /* Add padding to prevent glow cutoff */
+    padding: 0 20px; /* Add back the horizontal padding */
 }
 
 .vertical-gallery:hover {
@@ -923,9 +930,10 @@ details[open] summary::after {
     background: linear-gradient(to top, black, transparent);
 }
 
-/* Adjust content padding for wider gallery */
+/* Adjust content padding to accommodate the gallery with padding */
 .content {
-    padding-right: 280px; /* Increased padding to accommodate wider gallery with glow */
+    padding: 2.5rem 2rem; /* Original padding */
+    padding-right: 280px; /* Increased padding to accommodate gallery with padding */
 }
 
 /* Mobile adjustments - hide vertical gallery on small screens */
