@@ -107,17 +107,13 @@
 .navbar-container-bottom::after {
     content: "";
     position: fixed;
-    left: 32px;
-    bottom: 0px;
+    left: 56px;
     right: 0;
-    height: 60px; /* Height of the fade effect */
+    bottom: 0px;
+    height: 90px; /* Height of the fade effect */
     background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
     pointer-events: none; /* Allow clicks to pass through */
     z-index: 10; /* Ensure it's above the content */
-    }
-
-    .navbar-menu{
-    padding-bottom: 2vh; /* Add bottom padding for scrolling space */
     }
 }
 
@@ -263,13 +259,15 @@ html, body {
 
     .navbar-menu {
         width: 90%;
-        margin-top: 24px;
         padding-bottom: 2vh; /* Add more padding at the bottom for mobile */
+        margin-top: 12px;
     }
 
     .navbar-menu-head {
         font-size: 24px;
         padding-right: 24px;
+        padding-left: 24px;
+        margin-left: 0px;
     }
     
     .navbar-icon {
@@ -308,6 +306,13 @@ html, body {
         width: 95%
     }
 }
+
+@media (min-width: 768px) {
+    .navbar-menu {
+        margin-top: 12px;
+    }
+}
+
 
 /* Prevent scrolling for a specific class */
 .navbar-container-bottom {
