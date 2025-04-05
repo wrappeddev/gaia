@@ -1,212 +1,712 @@
+/* This will now work because the checkbox is a sibling of navbar-container-bottom */
+#navbar-toggle:checked ~ .navbar-container-bottom {
+    border-color: transparent; /* Change only the border color */
+    width: 420px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-icon {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    margin-left: 6px;
+    color: white;
+    font-size: 36px;
+    cursor: pointer;
+    z-index: 100;
+
+    /* Prevent text selection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
+    /* Prevent touch highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Prevent focus outline */
+    outline: none;
+}
+
+.navbar-menu-head {
+    position: fixed;
+    top: 18px;
+    left: 60px;
+    margin-left: 6px;
+    font-size: 36px;
+    white-space: nowrap;
+    color: #AFE69B;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    cursor: default;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#navbar-toggle {
+    display: none;
+}
+
+#navbar-toggle:checked ~ .navbar-icon {
+    color: #FEE185;
+}
+
+/* Show the menu head when checkbox is checked */
+#navbar-toggle:checked ~ .navbar-menu-head {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-container-bottom {
+    background-color: black;
+    height: 90%;
+    margin-top: 6px;
+    margin-left: 6px;
+    width: 360px;
+    justify-content: center;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+    border: none;
+    box-shadow: 
+        0 0 15px 5px rgba(250, 216, 106, 0.8),
+        0 0 30px 10px rgba(250, 216, 106, 0.5); /* Brighter, more pronounced glow */
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1); /* Smoother easing */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-clip-margin: 20px; /* Increased margin for shadow */
+}
+
+
+/* Adjust for mobile */
+@media (max-width: 768px) {
+    .navbar-container-bottom::before,
+    .navbar-container-bottom::after {
+        width: 70%; /* Match the width of navbar on mobile */
+        left: 10%; /* Center the fade effect */
+    }
+
+    /* Add fade-out effect at top and bottom of scrollable navbar */
+.navbar-container-bottom::before {
+    content: "";
+    position: fixed;
+    top: 16px;
+    left: 48px;
+    right: 0;
+    height: 90px; /* Height of the fade effect */
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 10; /* Ensure it's above the content */
+    }
+
+/* Bottom fade-out effect */
+.navbar-container-bottom::after {
+    content: "";
+    position: fixed;
+    left: 56px;
+    right: 0;
+    bottom: 0px;
+    height: 90px; /* Height of the fade effect */
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 10; /* Ensure it's above the content */
+    }
+}
+
 html {
     background-color: black;
 }
 
-.navbar-container-bottom {
-    background-color: transparent;
-    height: 100vh;
-    width: 360px;
-    margin-left: 24px;
-    justify-content: center;
-    display: flex;
+html::-webkit-scrollbar {
+    display: none;
 }
 
+/* For Firefox */
+html {
+    scrollbar-width: none;
+}
+
+/* For IE and Edge */
+html {
+    -ms-overflow-style: none;
+}
+
+/* Ensure body also has no scrollbar */
+body {
+    overflow: hidden; /* Option 1: Prevent scrolling completely */
+    /* OR */
+    overflow-y: scroll; /* Option 2: Allow scrolling but hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Adjust the navbar-menu container */
 .navbar-menu {
-    background-color: #AFE69B;
-    height: 60px;
-    width: 360px;
-    margin-top: 24px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 6vh; /* Add top padding instead of margin on summary */
+    padding-bottom: 2vh; /* Add bottom padding for scrolling space */
+    min-height: min-content; /* Ensure content can be smaller than container */
+     overscroll-behavior: none;
+}
+
+.navbar-menu summary {
+    color: white;
+    font-size: 28px;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    text-align: center;
-    position: relative;
+    margin-top: 0; /* Remove the top margin */
 }
 
-.menu {
-    vertical-align: middle;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    color: black;
-    display: flex;
-    width: 100%;
-    padding: 0 10px;
-    box-sizing: border-box;
-    position: relative;
-    height: 100%;
-}
-
-.navbar-submenu-text {
-    vertical-align: middle;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    color: black;
-    background-color: #747474;
-    margin-bottom: 6px;
-    display: flex;
-    width: 100%;
-    padding: 0 10px;
-    box-sizing: border-box;
-    position: relative;
-    height: 100%;
-}
-
-.navbar-submenu-text:first-of-type {
-    margin-top: 12px;
-}
-
-.menu:hover {
-    cursor: pointer;
-}
-
-.navbar-menu-text-left {
-    text-align: left;
-}
-
-.menu-right {
-    text-align: right;
-}
-
-details {
-    width: 100%;
-}
-
+/* Remove the dropdown arrow from details/summary */
 details > summary {
     list-style: none;
-    width: 100%;
     outline: none;
 }
 
+/* For Webkit browsers (Chrome, Safari, etc.) */
 details > summary::-webkit-details-marker {
     display: none;
 }
 
-/* Main dropdown */
-.dropdown-content {
-    border-radius: 5px;
-    margin-top: 24px;
-    width: 360px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+/* For Firefox */
+details > summary {
+    display: block; /* Ensures proper layout */
+}
+
+/* For older browsers that might still show a marker */
+details > summary::marker {
     display: none;
-    z-index: 1;
-    flex-direction: column;
-    align-items: left;
+    content: "";
 }
 
-details[open] > .dropdown-content {
-    display: flex;
+.navbar-menu details {
+    margin-bottom: 24px;
 }
 
-details.sub1[open] > .navbar-subsubmenu-text {
-    display: flex;
+.dropdown-content {
+    text-align: center;
+    text-decoration: none ;
+    font-size: 28px !important;
+    color: white;
+    margin-top: 12px;
 }
 
-.submenu-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    color: black;
-    background-color: #747474;
-    display: flex;
-    width: 100%;
-    padding: 0 10px;
-    box-sizing: border-box;
-    position: relative;
-    height: 100%;
+summary {
+    text-align: center !important;
 }
 
-.submenu-text {
-    margin-bottom: 6px;
+.navbar-menu .dropdown-content:nth-of-type(2) {
+    margin-top: 32px
+}
+.navbar-menu .dropdown-content:nth-of-type(3) {
+    margin-top: 32px
+}
+.navbar-menu .dropdown-content:nth-of-type(4) {
+    margin-top: 32px;
 }
 
-.subalign-left {
-    text-align: left;
+.line {
+    border-top: 1px solid #fad86a;
+    width: 90%;
+    margin-bottom: 12px;
 }
 
-.subalign-right {
-    text-align: right;
-}
-
-/* Alignment classes */
-.navbar-menu-text-left, .subalign-left {
-    text-align: left;
-    justify-self: flex-start;
-    margin-right: auto;
-}
-
-.navbar-menu-text-right, .subalign-right {
-    text-align: right;
-    justify-self: flex-end;
-    margin-left: auto;
-}
-
-/* Ensure parent containers use flex for proper alignment */
-.navbar-menu-text, .navbar-submenu-text, .navbar-subsubmenu-text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 10px;
-    box-sizing: border-box;
-}
-
-.submenu-text:hover {
+.dropdown-content:hover {
+    color: #007bff !important;
+    text-decoration: underline !important;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
-/* Hide subdropdown content by default */
-.subdropdown-content {
-    display: none;
+summary, .dropdown-content, .navbar-menu-head {
+    /* Prevent text selection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
+    /* Prevent touch highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Prevent focus outline */
+    outline: none;
 }
 
-/* Show subdropdown content when parent details is open */
-details.submenu-details[open] > .subdropdown-content {
+html, body {
+    overflow: hidden; /* Prevent scrolling on the main document */
+    height: 100%; /* Ensure full height */
+    margin: 0;
+    padding: 0;
+}
+
+body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.banner {
+    background: radial-gradient(
+        circle at center,
+        #002800 0%,
+        #003d00 20%,
+        #004f00 40%,
+        #006400 60%,
+        #007a00 80%,
+        #008f00 100%
+    );
+    height: 13.75rem;
+    width: 100%;
+    flex-shrink: 0; /* Prevent banner from shrinking */
+    display: flex;
+    justify-content: center;
     align-items: center;
+    z-index: 0;
+}
+
+.banner-content {
+    color: white;
+    font-size: 48px;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     width: 100%;
 }
 
-/* Add some spacing between items */
-.subdropdown-content .navbar-item-text {
-    margin-top: 6px;
+/* Text glow effect for headings or important text */
+.glow-text {
+    color: white;
+    text-shadow: 
+        0 0 2px #8a7535,
+        0 0 4px #a08940,
+        0 0 6px #b69c4c,
+        0 0 8px #c7ad58;
 }
 
-/* Add spacing for first item */
-.subdropdown-content .navbar-item-text:first-child {
-    margin-top: 12px;
-}
-
-/* Remove unused styles */
-.subsubmenu-details,
-.navbar-subsubmenu-text,
-.subsubdropdown-content {
-    /* These can be removed if not used elsewhere */
-}
-
-/* Style for navbar-item-text */
-.navbar-item-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    text-align: left;
-    color: black;
-    background-color: #D1D1D1;
-    margin-bottom: 6px;
-    padding: 8px 12px;
-    width: 90%;
+.content {
+    flex: 1; /* Take remaining space */
+    padding: 2rem;
     box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: relative;
+    z-index: 1;
 }
 
-.navbar-item-text:first-of-type {
-    margin-top: 12px;
+/* Adjust for mobile */
+@media (max-width: 768px) {
+    .content {
+        height: calc(100vh - 13.75rem - 20px); /* Account for potential mobile browser UI */
+        padding: 1.5rem;
+    }
 }
 
-.navbar-subsubmenu-text:first-of-type {
-    margin-top: 12px;
+@media (max-width: 768px) {
+    .navbar-container-bottom {
+        height: 99%;
+        max-height: 100vh; /* Ensure it doesn't exceed viewport height */
+        overflow-y: auto; /* Reinforce scrolling for mobile */
+    }
+
+    .navbar-menu {
+        width: 90%;
+        padding-bottom: 2vh; /* Add more padding at the bottom for mobile */
+        margin-top: 12px;
+    }
+
+    .navbar-menu-head {
+        font-size: 24px;
+        padding-right: 24px;
+        padding-left: 24px;
+        margin-left: 0px;
+    }
+    
+    .navbar-icon {
+        font-size: 24px;
+    }
+    
+    .dropdown-content {
+        font-size: 24px;
+    }
+    
+    summary {
+        font-size: 24px;
+    }
+    
+    .line {
+        width: 80%;
+    }
+    
+    .navbar-menu details {
+        margin-bottom: 16px;
+    }
+    
+    .navbar-menu .dropdown-content:nth-of-type(2) {
+        margin-top: 20px;
+    }
+    
+    .navbar-menu .dropdown-content:nth-of-type(3) {
+        margin-top: 20px;
+    }
+    
+    .navbar-menu .dropdown-content:nth-of-type(4) {
+        margin-top: 20px;
+    }
+
+    #navbar-toggle:checked ~ .navbar-container-bottom {
+        width: 95%
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-menu {
+        margin-top: 12px;
+    }
 }
 
 
+/* Prevent scrolling for a specific class */
+.navbar-container-bottom {
+    /* Existing styles... */
+    overflow: auto; /* Allow scrolling within the container */
+    overscroll-behavior: contain; /* Prevent scroll chaining to parent elements */
+}
+
+/* Prevent scrolling beyond the content */
+.navbar-menu {
+    overscroll-behavior: none; /* Prevent all overscroll behavior */
+}
+
+/* For mobile */
+@media (max-width: 768px) {
+    .navbar-container-bottom {
+        /* Existing styles... */
+        overscroll-behavior-y: contain; /* Specifically prevent vertical scroll chaining */
+    }
+    
+    /* Optional: If you want to completely disable scrolling for a specific element */
+    .no-scroll {
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+    }
+}
+
+/* Add this class to any element where you want to completely disable scrolling */
+.no-scroll {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+/* Add transitions to dropdowns */
+details {
+    transition: all 0.3s ease;
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+    color: #FEE185; /* Highlight color when open */
+}
+
+/* Enhanced dropdown content transitions */
+.dropdown-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, 
+                opacity 0.4s ease-in-out, 
+                margin 0.3s ease,
+                transform 0.4s ease;
+    margin-top: 0 !important;
+    transform: translateY(-10px);
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+details[open] .dropdown-content {
+    max-height: 50px; /* Adjust based on your content size */
+    opacity: 1;
+    margin-top: 12px !important;
+    transform: translateY(0);
+    pointer-events: auto; /* Enable interaction when visible */
+}
+
+/* Stagger the animations for multiple items */
+details[open] .dropdown-content:nth-of-type(1) {
+    transition-delay: 0.05s;
+}
+
+details[open] .dropdown-content:nth-of-type(2) {
+    margin-top: 32px !important;
+    transition-delay: 0.1s;
+}
+
+details[open] .dropdown-content:nth-of-type(3) {
+    margin-top: 32px !important;
+    transition-delay: 0.15s;
+}
+
+details[open] .dropdown-content:nth-of-type(4) {
+    margin-top: 32px !important;
+    transition-delay: 0.2s;
+}
+
+/* Reverse delay for closing animations */
+details:not([open]) .dropdown-content {
+    transition-delay: 0s;
+}
+
+/* Add rotation animation to summary */
+summary {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+summary::after:nth-of-type(2) {
+    content: "+";
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+summary::after {
+    content: "+";
+    position: absolute;
+    right: -30px;
+    transition: transform 0.3s ease;
+}
+
+etails[open]:nth-of-type(2) summary::after {
+    content: "-";
+    transform: rotate(180deg);
+}
+
+
+details[open] summary::after {
+    content: "-";
+    transform: rotate(180deg);
+}
+
+.banner {
+    background: radial-gradient(
+        circle at center,
+        #002800 0%,
+        #003d00 20%,
+        #004f00 40%,
+        #006400 60%,
+        #007a00 80%,
+        #008f00 100%
+    );
+    height: 13.75rem;
+    top: 0;
+    left: 0;
+    position: absolute; /* Change from fixed to absolute */
+    width: 100%;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure the container doesn't have a background that covers the shadow */
+.navbar-container-bottom::after {
+    z-index: -1 !important; /* Place below the shadow */
+}
+
+.banner-content {
+    color: white;
+    font-size: 48px;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Text glow effect for headings or important text */
+.glow-text {
+    color: white;
+    text-shadow: 
+        0 0 2px #8a7535,
+        0 0 4px #a08940,
+        0 0 6px #b69c4c,
+        0 0 8px #c7ad58;
+}
+
+.content {
+    margin-top: 13.75rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gaia-green {
+    color: #AFE69B;
+}
+
+.venm-purple {
+    color: #CD86FF;
+}
+
+
+.header h3 {
+    font-size: 18px;
+    color: #c7ad58; /* Subtle gold color matching the glow */
+    font-weight: 600; /* Lighter weight for contrast with h1 */
+    margin-top: -5px; /* Negative margin to pull it closer to h1 */
+    letter-spacing: 2px; /* Slightly spaced letters for elegance */
+    text-transform: uppercase; /* All caps for a distinguished look */
+    opacity: 1; /* Slightly transparent */
+    align-self: center; /* Align to the right side of the header */
+}
+
+/* Ensure the header container allows for alignment */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.content-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.column {
+    flex: 1;
+    padding: 1rem;
+    color: white;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.column h2 {
+    text-align: center;
+}
+
+.column p {
+    font-size: 24px;
+}
+
+.header h1 {
+    text-transform: uppercase;
+}
+
+.header-line {
+    border-top: 1px solid #fad86a;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+    .content-columns {
+        flex-direction: column;
+    }
+    
+    .column {
+        width: 100%;
+    }
+}
+
+.circle-img {
+    padding-left: 15px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 200px; /* Set desired size */
+    height: 200px; /* Must be equal to width for a perfect circle */
+    border-radius: 50%; /* Creates the circle shape */
+    object-fit: cover; /* Ensures image fills the circle without distortion */
+    object-position: center; /* Centers the image within the circle */
+    border: 3px solid #c7ad58; /* Optional: adds a gold border */
+    box-shadow: 
+        0 0 15px 5px rgba(250, 216, 106, 0.8),
+        0 0 30px 10px rgba(250, 216, 106, 0.5);
+    margin-top: 1.5rem; /* Adds space between text and image */
+}
+
+/* Scrollbar styling for Webkit browsers (Chrome, Safari, Edge) */
+.content::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+    box-shadow: 
+        0 0 15px 5px rgba(250, 216, 106, 0.8),
+        0 0 30px 10px rgba(250, 216, 106, 0.5);
+}
+
+.content::-webkit-scrollbar-track {
+    background: #000000; /* Black track */
+    box-shadow: 
+        0 0 15px 5px rgba(250, 216, 106, 0.8),
+        0 0 30px 10px rgba(250, 216, 106, 0.5);
+    border-radius: 10px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #006400; /* Dark green thumb */
+    border-radius: 10px;
+    border: 2px solid #000000; /* Black border around thumb */
+    box-shadow: inset 0 0 6px rgba(250, 216, 106, 0.5); /* Inner glow effect */
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #008f00; /* Lighter green on hover */
+    box-shadow: inset 0 0 8px rgba(250, 216, 106, 0.8); /* Enhanced inner glow on hover */
+}
+
+/* Scrollbar styling for Firefox */
+.content {
+    scrollbar-width: auto; /* "auto", "thin", or "none" */
+    scrollbar-color: rgba(250, 216, 106, 0.8) #000000; /* thumb and track color */
+}
+
+/* Hide default scrollbar buttons in WebKit */
+.content::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Adjust content padding to accommodate custom arrows */
+.content {
+    padding: 2.5rem 2rem;
+}
