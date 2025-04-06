@@ -272,16 +272,8 @@ body {
 
 /* Banner at the top of the page */
 .banner {
-    background: radial-gradient(
-        circle at center,
-        #002800 0%,
-        #003d00 20%,
-        #004f00 40%,
-        #006400 60%,
-        #007a00 80%,
-        #008f00 100%
-    );
-    height: 13.75rem;
+    background: url('homebanner.jpg') center 20%/cover no-repeat;
+    height: 45rem;
     width: 100%;
     position: relative;
     z-index: 20;
@@ -289,6 +281,17 @@ body {
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
+}
+
+/* Adjust banner image position on mobile */
+@media (max-width: 768px) {
+    .banner {
+        background-position: 47.5% 20%; /* Move image slightly to the left (40% instead of center/50%) */
+    }
+    
+    .banner-content {
+        font-size: 28px; /* Keep the existing font size adjustment */
+    }
 }
 
 .banner-content {
@@ -642,15 +645,17 @@ body::-webkit-scrollbar {
 
 /* Vertical self-scrolling image gallery (right side) */
 .vertical-gallery-container {
-    position: absolute;
+    position: absolute; /* Keep absolute instead of fixed */
     right: 10%;
-    top: 13.75rem; /* Position relative to the top of the page/banner */
+    top: 45rem;
     width: 200px;
-    height: auto; /* Allow height to adjust based on content */
-    max-height: calc(100vh - 13.75rem); /* Maximum height based on viewport */
+    height: auto;
+    max-height: calc(100vh - 45rem);
     overflow: visible;
     z-index: 10;
     padding-right: 20px;
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: transform; /* Optimize for animations */
 }
 
 .vertical-gallery {
@@ -727,39 +732,41 @@ body::-webkit-scrollbar {
     opacity: 0;
 }
 
-/* Fade edges of the gallery */
+/* Fade edges of the gallery - make them scroll with content */
 .vertical-gallery-container::before,
 .vertical-gallery-container::after {
     content: "";
-    position: absolute; /* Change from fixed to absolute */
+    position: absolute; /* Keep absolute instead of fixed */
     width: 100%;
     height: 80px;
     left: 0;
-    z-index: 2;
+    z-index: 20;
     pointer-events: none;
 }
 
 .vertical-gallery-container::before {
-    top: 0; /* Position relative to container */
-    background: linear-gradient(to bottom, black, transparent);
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .vertical-gallery-container::after {
-    bottom: 0; /* Position relative to container */
-    background: linear-gradient(to top, black, transparent);
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 /* Left vertical self-scrolling image gallery */
 .left-vertical-gallery-container {
-    position: absolute;
+    position: absolute; /* Keep absolute instead of fixed */
     left: 10%;
-    top: 13.75rem; /* Position relative to the top of the page/banner */
+    top: 45rem;
     width: 200px;
-    height: auto; /* Allow height to adjust based on content */
-    max-height: calc(100vh - 13.75rem); /* Maximum height based on viewport */
+    height: auto;
+    max-height: calc(100vh - 45rem);
     overflow: visible;
     z-index: 10;
     padding-left: 20px;
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: transform; /* Optimize for animations */
 }
 
 .left-vertical-gallery {
@@ -789,26 +796,26 @@ body::-webkit-scrollbar {
     animation: scrollVerticalReverse 120s linear infinite; /* Longer duration for more images */
 }
 
-/* Fade edges of the left gallery */
+/* Fade edges of the left gallery - make them scroll with content */
 .left-vertical-gallery-container::before,
 .left-vertical-gallery-container::after {
     content: "";
-    position: absolute; /* Change from fixed to absolute */
+    position: absolute; /* Keep absolute instead of fixed */
     width: 100%;
     height: 80px;
     left: 0;
-    z-index: 2;
+    z-index: 20;
     pointer-events: none;
 }
 
 .left-vertical-gallery-container::before {
-    top: 0; /* Position relative to container */
-    background: linear-gradient(to bottom, black, transparent);
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 .left-vertical-gallery-container::after {
-    bottom: 0; /* Position relative to container */
-    background: linear-gradient(to top, black, transparent);
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 /* Adjust content padding to accommodate both galleries */
@@ -1447,7 +1454,7 @@ html, body {
     position: absolute;
     height: auto;
     max-height: calc(100vh - 13.75rem);
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to visible */
     pointer-events: none;
 }
 
@@ -1717,4 +1724,344 @@ main, .main-content {
         max-height: none !important;
         height: auto !important;
     }
+}
+
+/* Fix columns running off the right side on medium and large screens */
+.content-columns {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    padding: 0 1rem; /* Add consistent padding */
+    margin: 0 auto; /* Center the columns */
+}
+
+.column {
+    box-sizing: border-box;
+    width: 48%; /* Slightly less than 50% to account for gap */
+    max-width: 100%; /* Ensure column doesn't exceed container width */
+    padding: 0 1rem;
+    overflow-wrap: break-word; /* Ensure text wraps within column */
+    word-wrap: break-word;
+}
+
+/* Ensure content container doesn't overflow */
+.content {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Adjust content width for different screen sizes */
+@media (min-width: 769px) and (max-width: 1999px) {
+    .content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+    
+    .content-columns {
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* Disable scrolling on content columns */
+.content-columns {
+    overflow: visible !important; /* Prevent scrolling */
+    height: auto !important;
+    max-height: none !important;
+}
+
+.column {
+    overflow: visible !important; /* Prevent scrolling */
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* Ensure main content area has proper scroll behavior */
+.content {
+    overflow-y: visible !important; /* Change from auto to visible */
+    height: auto !important;
+    max-height: none !important;
+    position: relative !important;
+}
+
+/* Ensure body has proper scroll behavior */
+html, body {
+    overflow-y: auto !important; /* Enable vertical scrolling on the entire page */
+    height: 100% !important;
+    min-height: 100vh !important;
+}
+
+main, .main-content {
+    overflow: visible !important; /* Disable scrolling on main container */
+    max-height: none !important;
+    height: auto !important;
+    position: relative !important;
+}
+
+/* Reset any max-height constraints */
+.content-columns, 
+.mobile-content-columns,
+.column,
+.mobile-column {
+    max-height: none !important;
+}
+
+/* Fix content columns being cut off at the bottom */
+.content {
+    position: relative;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important; /* Remove min-height: 100vh */
+    max-height: none !important;
+    padding-bottom: 3rem !important; /* Add padding at the bottom */
+}
+
+.content-columns,
+.mobile-content-columns {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    margin-bottom: 0 !important; /* Remove extra margin */
+}
+
+.column,
+.mobile-column {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* Ensure the page body allows full content display */
+html, body {
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
+}
+
+/* Fix mobile view specifically */
+@media (max-width: 768px) {
+    .content {
+        padding-bottom: 3rem !important; /* Reduce padding */
+    }
+    
+    .mobile-content-columns {
+        margin-bottom: 0 !important; /* Remove extra margin */
+    }
+    
+    .mobile-column:last-child {
+        margin-bottom: 0 !important; /* Remove margin from last column */
+    }
+}
+
+/* Add a wrapper with specific height if needed */
+.page-wrapper {
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Fix vertical galleries to viewport - stronger approach */
+.vertical-gallery-container,
+.left-vertical-gallery-container {
+    position: fixed !important; /* Force fixed positioning */
+    top: 13.75rem;
+    height: calc(100vh - 13.75rem);
+    overflow: visible;
+    pointer-events: none;
+    z-index: 100; /* Increase z-index to ensure visibility */
+}
+
+.vertical-gallery-container {
+    right: 5%;
+}
+
+.left-vertical-gallery-container {
+    left: 5%;
+}
+
+/* Override any other styles that might be affecting the galleries */
+@media (min-width: 2000px) {
+    .vertical-gallery-container,
+    .left-vertical-gallery-container {
+        position: fixed !important;
+        display: block !important;
+    }
+    
+    /* Remove any conflicting styles */
+    .vertical-gallery-container.absolute,
+    .left-vertical-gallery-container.absolute,
+    .vertical-gallery-container[style*="position: absolute"],
+    .left-vertical-gallery-container[style*="position: absolute"] {
+        position: fixed !important;
+    }
+}
+
+/* Ensure mobile gallery stays fixed */
+.mobile-horizontal-gallery-container {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Remove any conflicting styles for mobile gallery */
+@media (max-width: 1024px) {
+    .mobile-horizontal-gallery-container {
+        position: fixed !important;
+        display: block !important;
+    }
+    
+    .mobile-horizontal-gallery-container[style*="position: relative"],
+    .mobile-horizontal-gallery-container[style*="position: absolute"] {
+        position: fixed !important;
+    }
+}
+
+/* Position galleries behind the banner - simplified approach */
+.vertical-gallery-container,
+.left-vertical-gallery-container {
+    position: fixed !important;
+    top: 13.75rem; /* Position below banner height */
+    height: calc(100vh - 13.75rem); /* Adjust height to start below banner */
+    overflow: visible;
+    pointer-events: none;
+    z-index: 1 !important; /* Very low z-index to be behind everything */
+}
+
+.vertical-gallery-container {
+    right: 5%;
+}
+
+.left-vertical-gallery-container {
+    left: 5%;
+}
+
+/* Remove ALL gradients and pseudo-elements from galleries */
+.vertical-gallery-container::before,
+.vertical-gallery-container::after,
+.left-vertical-gallery-container::before,
+.left-vertical-gallery-container::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+}
+
+/* Ensure banner is above galleries */
+.banner, header, .header, nav, .nav, .navigation, .menu {
+    position: relative;
+    z-index: 50 !important; /* Very high z-index */
+}
+
+/* Ensure content is above galleries but below header */
+.content {
+    position: relative;
+    z-index: 10 !important;
+}
+
+/* Make gallery items clickable */
+.vertical-gallery-item,
+.left-vertical-gallery-item {
+    pointer-events: auto;
+    background: none !important; /* Remove any background */
+}
+
+/* Override any other styles that might be adding gradients */
+.vertical-gallery-container *::before,
+.vertical-gallery-container *::after,
+.left-vertical-gallery-container *::before,
+.left-vertical-gallery-container *::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+}
+
+/* Add glow effects back to gallery items */
+.vertical-gallery-item,
+.left-vertical-gallery-item {
+    pointer-events: auto;
+    position: relative;
+    overflow: visible !important; /* Allow glow to extend beyond borders */
+    margin: 15px 0;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+/* Add glow effect to right gallery items */
+.vertical-gallery-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 10px 3px rgba(175, 230, 155, 0.7), /* GAIA green glow */
+        0 0 20px 6px rgba(175, 230, 155, 0.4);
+    z-index: -1; /* Place glow behind the image */
+    pointer-events: none;
+}
+
+/* Add glow effect to left gallery items */
+.left-vertical-gallery-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 15px 5px rgba(205, 134, 255, 0.7), /* VENM purple glow */
+        0 0 30px 10px rgba(205, 134, 255, 0.4);
+    z-index: -1; /* Place glow behind the image */
+    pointer-events: none;
+}
+
+/* Ensure images fit properly */
+.vertical-gallery-item img,
+.left-vertical-gallery-item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Add hover effect */
+.vertical-gallery-item:hover,
+.left-vertical-gallery-item:hover {
+    transform: scale(1.05);
+}
+
+/* Enhance glow on hover */
+.vertical-gallery-item:hover::before {
+    box-shadow: 
+        0 0 15px 5px rgba(175, 230, 155, 0.8), /* GAIA green glow */
+        0 0 30px 10px rgba(175, 230, 155, 0.5);
+}
+
+.left-vertical-gallery-item:hover::before {
+    box-shadow: 
+        0 0 20px 7px rgba(205, 134, 255, 0.8), /* VENM purple glow */
+        0 0 40px 15px rgba(205, 134, 255, 0.5);
+}
+
+/* Allow these specific pseudo-elements for glow effects */
+.vertical-gallery-item::before,
+.left-vertical-gallery-item::before {
+    display: block !important;
+    content: "" !important;
 }
