@@ -11,10 +11,10 @@
     top: 12px;
     left: 12px;
     margin-left: 6px;
-    color: white;
+    color: #FEE185; /* Golden color for the icon */
     font-size: 36px;
     cursor: pointer;
-    z-index: 100;
+    z-index: 200; /* Very high z-index to be above everything */
 
     /* Prevent text selection */
     user-select: none;
@@ -39,7 +39,7 @@
     color: #AFE69B;
     opacity: 0;
     visibility: hidden;
-    z-index: 100;
+    z-index: 200; /* Match navbar icon z-index */
     cursor: default;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
@@ -49,7 +49,7 @@
 }
 
 #navbar-toggle:checked ~ .navbar-icon {
-    color: #FEE185;
+    color: #AFE69B; /* Change to green when active */
 }
 
 /* Show the menu head when checkbox is checked */
@@ -71,7 +71,7 @@
     left: 0;
     opacity: 0;
     visibility: hidden;
-    z-index: 50; /* Increase z-index to ensure it appears above content */
+    z-index: 150; /* Higher than banner but lower than icon */
     border: none;
     box-shadow: 
         0 0 15px 5px rgba(250, 216, 106, 0.8),
@@ -276,7 +276,7 @@ body {
     height: 45rem;
     width: 100%;
     position: relative;
-    z-index: 20;
+    z-index: 100; /* Lower than navbar elements */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -972,13 +972,15 @@ body::-webkit-scrollbar {
 /* Left vertical self-scrolling image gallery - rectangular style */
 .left-vertical-gallery-container .vertical-gallery-item {
     position: relative;
-    min-height: 100px; /* Significantly reduced height */
-    width: 250px; /* Increased width */
+    min-height: 80px; /* Reduced height for more rectangular shape */
+    width: 250px; /* Maintain width */
     margin: 20px 0;
-    border-radius: 8px; /* Rectangular with slightly rounded corners */
+    border-radius: 8px;
     overflow: visible;
     transition: transform 0.3s ease;
     pointer-events: auto;
+    display: flex; /* Add flex display */
+    justify-content: center; /* Center horizontally */
 }
 
 /* Ensure container has enough width for the wider images */
@@ -1031,18 +1033,19 @@ body::-webkit-scrollbar {
     content: "";
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: -25%; /* Shift shadow left to account for wider image */
+    width: 150%; /* Match image width */
     height: 100%;
-    border-radius: 8px; /* Match the container's border radius */
+    border-radius: 8px;
     box-shadow: 
         0 0 15px 5px rgba(250, 216, 106, 0.8),
         0 0 30px 10px rgba(250, 216, 106, 0.5);
-    z-index: -1; /* Place glow behind the image */
+    z-index: -1;
+    transform: none; /* Remove the scale transform */
 }
 
 .left-vertical-gallery-container .vertical-gallery-item img {
-    width: 100%;
+    width: 150%;
     height: 100%;
     border-radius: 8px; /* Match the container's border radius */
     object-fit: cover;
@@ -2064,4 +2067,69 @@ html, body {
 .left-vertical-gallery-item::before {
     display: block !important;
     content: "" !important;
+}
+
+/* Make navbar fill entire screen on mobile */
+@media (max-width: 768px) {
+    .navbar-container-bottom {
+        width: 320px; /* Reduced from 420px to make it narrower */
+        height: 90%; /* Revert to original height */
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 150;
+    }
+    
+    .navbar-menu {
+        height: auto; /* Revert to auto height */
+        width: 100%;
+        padding-top: 6vh; /* Revert to original padding */
+        overflow-y: auto;
+    }
+    
+    .navbar-menu-head {
+        position: fixed;
+        top: 18px; /* Revert to original position */
+        left: 60px; /* Revert to original position */
+        width: auto; /* Revert to auto width */
+        z-index: 200;
+    }
+    
+    /* Revert toggle position */
+    .navbar-icon {
+        position: fixed;
+        top: 12px; /* Revert to original position */
+        left: 12px; /* Revert to original position */
+        z-index: 200;
+    }
+}
+
+/* Mobile-specific navbar toggle behavior */
+@media (max-width: 768px) {
+    #navbar-toggle:checked ~ .navbar-container-bottom {
+        width: 96%; /* Set to 97% of screen width on mobile */ 
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Adjust fade effects to match new width */
+    .navbar-container-bottom::before,
+    .navbar-container-bottom::after {
+        width: 80%; /* Adjust fade width to match new navbar width */
+        left: 10%; /* Center the fade effect */
+    }
+}
+
+/* Adjust navbar head size on mobile */
+@media (max-width: 768px) {
+    .navbar-menu-head {
+        font-size: 28px; /* Reduced from 36px */
+        top: 22px; /* Adjusted position to align with smaller text */
+    }
+    
+    /* Adjust icon size to match */
+    .navbar-icon {
+        font-size: 30px; /* Reduced from 36px */
+        top: 16px; /* Adjusted position */
+    }
 }
