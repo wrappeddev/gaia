@@ -2268,3 +2268,34 @@ html, body {
         display: block !important;
     }
 }
+
+/* Ensure navbar and navmenu appear above mobile gallery */
+@media (max-width: 768px) {
+    /* Increase z-index for navbar elements */
+    .navbar-container-bottom {
+        z-index: 1000 !important; /* Higher than mobile gallery (999) */
+    }
+    
+    .navbar-menu {
+        z-index: 1001 !important; /* Higher than container */
+    }
+    
+    .navbar-icon {
+        z-index: 1002 !important; /* Higher than menu */
+    }
+    
+    .navbar-menu-head {
+        z-index: 1002 !important; /* Same as icon */
+    }
+    
+    /* Ensure fade effects are above gallery but below menu content */
+    .navbar-container-bottom::before,
+    .navbar-container-bottom::after {
+        z-index: 1001 !important; /* Same as menu */
+    }
+    
+    /* Keep mobile gallery below navbar elements */
+    .mobile-horizontal-gallery-container {
+        z-index: 999 !important; /* Below navbar elements */
+    }
+}
