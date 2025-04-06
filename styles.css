@@ -2292,6 +2292,7 @@ html, body {
     .navbar-container-bottom::before,
     .navbar-container-bottom::after {
         z-index: 1001 !important; /* Same as menu */
+        bottom: 9.5%; /* Increased from 5% to move gradient further from bottom */
     }
     
     /* Keep mobile gallery below navbar elements */
