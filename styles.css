@@ -1,1 +1,214 @@
+html {
+    background-color: black;
+}
 
+.navbar-container-bottom {
+    background-color: transparent;
+    height: 100vh;
+    width: 360px;
+    margin-left: 24px;
+    justify-content: center;
+    display: flex;
+}
+
+.navbar-menu {
+    background-color: #AFE69B;
+    height: 60px;
+    width: 360px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.navbar-menu-text {
+    vertical-align: middle;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: black;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+
+.navbar-submenu-text {
+    vertical-align: middle;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: black;
+    background-color: #747474;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+
+.navbar-menu-text:hover {
+    cursor: pointer;
+}
+
+.navbar-menu-text-left {
+    text-align: left;
+}
+
+.navbar-menu-text-right {
+    text-align: right;
+}
+
+details {
+    width: 100%;
+}
+
+details > summary {
+    list-style: none;
+    width: 100%;
+    outline: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Main dropdown */
+.dropdown-content {
+    background-color: #AFE69B;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 360px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    z-index: 1;
+    flex-direction: column;
+    align-items: left;
+}
+
+details[open] > .dropdown-content {
+    display: flex;
+}
+
+/* First level submenu */
+.submenu-details {
+    width: 95%;
+    margin: 5px 0;
+    background-color: #747474;
+}
+
+.navbar-submenu-text {
+    vertical-align: middle;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: black;
+    background-color: #747474;
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+
+.subdropdown-content {
+    background-color: #5a5a5a;
+    width: 90%;
+    margin: 5px auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+    padding: 5px 0;
+}
+
+.submenu-details[open] > .subdropdown-content {
+    display: flex;
+}
+
+/* Second level submenu */
+.subsubmenu-details {
+    width: 90%;
+    margin: 3px 0;
+}
+
+.navbar-subsubmenu-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    background-color: #5a5a5a;
+}
+
+.subsubdropdown-content {
+    background-color: #444444;
+    width: 90%;
+    margin: 3px auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+    padding: 5px 0;
+}
+
+.subsubmenu-details[open] > .subsubdropdown-content {
+    display: flex;
+}
+
+/* Third level items */
+.navbar-item-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: #e0e0e0;
+    width: 90%;
+    padding: 6px 10px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Remove default details markers */
+details > summary {
+    list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Fix nested dropdown issue */
+.dropdown-content .dropdown-content {
+    display: none;
+    position: static;
+    transform: none;
+    left: auto;
+    margin: 0;
+    width: 100%;
+}
+
+details[open] .dropdown-content .dropdown-content {
+    display: flex;
+}
+
+.menu-bottom {
+    background-color: #AFE69B;
+}
+
+summary {
+    background-color: #AFE69B;
+}
