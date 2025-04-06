@@ -1469,7 +1469,7 @@ html, body {
     pointer-events: none;
 }
 
-/* Ensure main content area has proper height constraints */
+/* Ensure main content area has proper scroll behavior */
 main, .main-content {
     position: relative;
     z-index: 5;
@@ -2077,6 +2077,36 @@ html, body {
     content: "" !important;
 }
 
+/* Add line dividers between mobile sections */
+@media (max-width: 768px) {
+    /* Add divider after each mobile column except the last one */
+    .mobile-column:not(:last-child)::after {
+        content: "";
+        display: block;
+        width: 90%;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            rgba(254, 229, 133, 0.6),
+            rgba(254, 229, 133, 0.8),
+            rgba(254, 229, 133, 0.6),
+            transparent
+        );
+        margin: 2rem auto 0;
+    }
+    
+    /* Add more space between columns */
+    .mobile-column {
+        margin-bottom: 2rem;
+    }
+    
+    /* Add space after the divider */
+    .mobile-column:not(:last-child) {
+        padding-bottom: 1rem;
+    }
+}
+
 /* Make navbar fill entire screen on mobile */
 @media (max-width: 768px) {
     .navbar-container-bottom {
@@ -2139,5 +2169,22 @@ html, body {
     .navbar-icon {
         font-size: 30px; /* Reduced from 36px */
         top: 16px; /* Adjusted position */
+    }
+}
+
+/* Increase font size for mobile content columns */
+@media (max-width: 768px) {
+    .mobile-column h2 {
+        font-size: 2.2rem; /* Increased heading size */
+        margin-bottom: 1.2rem; /* Add more space below headings */
+    }
+    
+    .mobile-column p {
+        font-size: 1.2rem; /* Increased paragraph text size */
+        line-height: 1.7; /* Adjusted line height for better readability */
+    }
+    
+    .mobile-column {
+        padding: 1.5rem; /* Increased padding for more breathing room */
     }
 }
