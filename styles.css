@@ -855,9 +855,9 @@ details[open] summary::after {
 .vertical-gallery {
     display: flex;
     flex-direction: column;
-    height: calc(210px * 10); /* Height of images × number of images */
-    animation: scrollVertical 30s linear infinite;
-    padding: 0 20px; /* Add back the horizontal padding */
+    height: calc(210px * 13); /* Increased to include more images */
+    animation: scrollVertical 60s linear infinite;
+    padding: 0 20px;
 }
 
 .vertical-gallery:hover {
@@ -904,8 +904,25 @@ details[open] summary::after {
         transform: translateY(0);
     }
     100% {
-        transform: translateY(calc(-250px * 5)); /* Adjusted for increased spacing */
+        transform: translateY(calc(-250px * 6)); /* 250px = image height + margins */
     }
+}
+
+/* Add these styles to create a seamless loop */
+.vertical-gallery, .left-vertical-gallery {
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Clone the first set of images at the end to create seamless transition */
+.vertical-gallery::after, .left-vertical-gallery::after {
+    content: "";
+    display: block;
+    height: 1px; /* Minimal height to prevent layout issues */
+    opacity: 0;
 }
 
 /* Fade edges of the gallery */
@@ -930,20 +947,83 @@ details[open] summary::after {
     background: linear-gradient(to top, black, transparent);
 }
 
-/* Adjust content padding to accommodate the gallery with padding */
-.content {
-    padding: 2.5rem 2rem; /* Original padding */
-    padding-right: 280px; /* Increased padding to accommodate gallery with padding */
+/* Left vertical self-scrolling image gallery */
+.left-vertical-gallery-container {
+    position: fixed;
+    left: 10%; /* Position more towards center from left edge */
+    top: 13.75rem; /* Position below banner */
+    width: 250px; /* Same width as right gallery */
+    height: calc(100vh - 13.75rem); /* Full height minus banner */
+    overflow: hidden;
+    z-index: 10; /* Same z-index as right gallery */
 }
 
-/* Mobile adjustments - hide vertical gallery on small screens */
+.left-vertical-gallery {
+    display: flex;
+    flex-direction: column;
+    height: calc(210px * 13); /* Increased to match right gallery */
+    animation: scrollVerticalReverse 30s linear infinite;
+    padding: 0 20px;
+}
+
+.left-vertical-gallery:hover {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+@keyframes scrollVerticalReverse {
+    0% {
+        transform: translateY(calc(-250px * 6)); /* Match exactly */
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Fade edges of the left gallery */
+.left-vertical-gallery-container::before,
+.left-vertical-gallery-container::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.left-vertical-gallery-container::before {
+    top: 0;
+    background: linear-gradient(to bottom, black, transparent);
+}
+
+.left-vertical-gallery-container::after {
+    bottom: 0;
+    background: linear-gradient(to top, black, transparent);
+}
+
+/* Adjust content padding to accommodate both galleries */
+.content {
+    padding: 2.5rem 2rem; /* Original padding */
+    padding-right: 20%; /* Use percentage instead of fixed pixels */
+    padding-left: 20%; /* Use percentage instead of fixed pixels */
+    max-width: 1400px; /* Increase max-width */
+}
+
+/* Mobile adjustments - hide both galleries on small screens */
 @media (max-width: 1024px) {
-    .vertical-gallery-container {
+    .left-vertical-gallery-container {
         display: none;
     }
     
     .content {
-        padding-right: 2rem; /* Reset padding on mobile */
-        max-width: 1200px; /* Restore original max-width */
+        padding-left: 2rem; /* Reset left padding on mobile */
+    }
+}
+
+/* Add a new media query for larger screens */
+@media (min-width: 1400px) {
+    .content {
+        padding-right: 280px; /* Fixed padding for larger screens */
+        padding-left: 280px; /* Fixed padding for larger screens */
     }
 }
