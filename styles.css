@@ -136,6 +136,14 @@ html {
     -ms-overflow-style: none;
 }
 
+.taco-pink {
+    color: #EEB3D3;
+}
+
+.ally-pink {
+    color: #FE85FE
+}
+
 /* Ensure body also has no scrollbar */
 body {
     overflow: hidden; /* Option 1: Prevent scrolling completely */
