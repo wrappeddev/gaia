@@ -49,6 +49,13 @@
     }
 }
 
+/* Hide desktop-only elements on mobile */
+@media (max-width: 768px) {
+    .desktop-only-heading {
+        display: none !important;
+    }
+}
+
 @media (min-width: 769px) and (max-width: 1999px) {
     .legacy-hall-page .content-columns {
         width: 85% !important;
@@ -221,6 +228,19 @@
         text-align: center;
     }
 }
+
+/* Add top margin for specific images on mobile */
+@media (max-width: 768px) {
+    .legacy-hall-page .top-margin-mobile {
+        margin-top: 2rem !important;
+    }
+    
+    /* Add margin after dividers */
+    .legacy-hall-page .header-line {
+        margin-bottom: 2rem !important;
+    }
+}
+
 
 
 
