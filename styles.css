@@ -2249,6 +2249,23 @@ html, body {
     }
 }
 
+/* Add bottom margin to navbar head on mobile */
+@media (max-width: 768px) {
+    .navbar-menu-head {
+        margin-bottom: 30px; /* Add space below the navbar head */
+    }
+    
+    /* Adjust top padding of navbar menu to accommodate the spacing */
+    .navbar-menu {
+        padding-top: 70px; /* Increased from 6vh to provide more consistent spacing */
+    }
+    
+    /* Ensure first summary has proper spacing from navbar head */
+    .navbar-menu details:first-of-type {
+        margin-top: 15px;
+    }
+}
+
 /* Increase font size for mobile content columns */
 @media (max-width: 768px) {
     .mobile-column h2 {
