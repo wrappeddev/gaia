@@ -1,0 +1,226 @@
+/* Legacy Hall specific styles */
+
+/* Preserve Legacy Hall specific widths */
+.legacy-hall-page .header-line {
+    width: 90%; /* Slightly wider than Legacy Hall content columns (85%) */
+    max-width: 90%;
+    margin: 2rem auto;
+}
+
+/* Create extremely large outward glow effect */
+.legacy-hall-page .image-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    width: 300px;
+    height: 300px;
+    overflow: visible; /* Allow glow to extend outside */
+}
+
+/* Enhance glow on hover */
+.legacy-hall-page .image-wrapper:hover::before {
+    box-shadow: 
+        0 0 20px 30px rgba(250, 216, 106, 0.8),
+        0 0 30px 20px 60px rgba(250, 216, 106, 0.5),
+        0 0 40px 90px rgba(250, 216, 106, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Make Legacy Hall columns wider with 85% max-width */
+.legacy-hall-page .content-columns {
+    width: 85%;
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+.legacy-hall-page .column {
+    width: 55%; /* Wider columns */
+    max-width: 85%; /* Set max-width to 85% */
+    padding: 1rem 2rem; /* Add more horizontal padding */
+}
+
+/* Ensure 85% max-width applies across all media queries */
+@media (max-width: 768px) {
+    .legacy-hall-page .mobile-column {
+        width: 85%;
+        max-width: 85%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1999px) {
+    .legacy-hall-page .content-columns {
+        width: 85% !important;
+        max-width: 85% !important;
+    }
+}
+
+@media (min-width: 2000px) {
+    .legacy-hall-page .content-columns {
+        width: 85% !important;
+        max-width: 85% !important;
+    }
+}
+
+/* Fix image height differences and align headers horizontally */
+.legacy-hall-page .column {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.legacy-hall-page .column img {
+    height: 300px; /* Fixed height for all images */
+    object-fit: cover; /* Maintain aspect ratio while filling the space */
+    margin-bottom: 1.5rem;
+}
+
+/* Create a wrapper for the image to maintain consistent spacing */
+.legacy-hall-page .image-wrapper {
+    height: 300px; /* Same as image height */
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure headers start at the same vertical position */
+.legacy-hall-page .content-columns {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Ensure column content starts at the same position */
+.legacy-hall-page .column h2 {
+    margin-top: 0;
+    max-width: 95%; /* Wider container */
+    margin: 0 auto;
+}
+
+.legacy-hall-page .column {
+    width: 48%; /* Wider columns */
+    max-width: none; /* Remove max-width constraint */
+    padding: 1rem 1.5rem; /* Add more horizontal padding */
+}
+
+.legacy-hall-page .column h2 {
+    font-size: 2rem; /* Larger headings */
+    margin-bottom: 1rem; /* More space below headings */
+}
+
+.legacy-hall-page .column p {
+    font-size: 1.1rem; /* Slightly larger text */
+    line-height: 1.7; /* Better line height for readability */
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .legacy-hall-page .image-wrapper {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 2rem auto;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: visible;
+    }
+    
+    .legacy-hall-page .image-wrapper img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(250, 216, 106, 0.8);
+        box-shadow: 0 0 20px 10px rgba(250, 216, 106, 0.5);
+        z-index: 2;
+    }
+    
+    /* Remove the ::before element shadow completely */
+    .legacy-hall-page .image-wrapper::before {
+        display: none;
+    }
+    
+    /* Add a simpler hover effect directly on the image */
+    .legacy-hall-page .image-wrapper img:hover {
+        box-shadow: 0 0 30px 15px rgba(250, 216, 106, 0.7);
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+    
+    /* Fix column layout and spacing */
+    .legacy-hall-page .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 3rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Ensure text doesn't overlap with images */
+    .legacy-hall-page .column h2 {
+        margin-top: 1rem;
+        clear: both;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .legacy-hall-page .column p {
+        margin-top: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Fix mobile columns layout */
+@media (max-width: 768px) {
+    /* Hide desktop columns completely on mobile */
+    .legacy-hall-page .content-columns {
+        display: none !important;
+    }
+    
+    /* Ensure mobile columns display properly */
+    .legacy-hall-page .mobile-content-columns {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 0rem !important;
+    }
+    
+    .legacy-hall-page .mobile-column {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 3rem 0 !important;
+        padding: 0 1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .legacy-hall-page .image-wrapper {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 2rem auto;
+        position: relative;
+        overflow: visible;
+    }
+    
+    .legacy-hall-page .mobile-column h2 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .legacy-hall-page .mobile-column p {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+

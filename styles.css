@@ -457,97 +457,6 @@ body {
     }
 }
 
-/* Preserve Legacy Hall specific widths */
-.legacy-hall-page .header-line {
-    width: 90%; /* Slightly wider than Legacy Hall content columns (85%) */
-    max-width: 90%;
-    margin: 2rem auto;
-}
-
-/* Responsive layout for mobile */
-@media (max-width: 768px) {
-    .content-columns {
-        flex-direction: column;
-        align-items: center; /* Center columns horizontally */
-        padding: 0; /* Remove any padding that might cause offset */
-    }
-    
-    .column {
-        width: 100%;
-        max-width: 100%; /* Ensure columns don't exceed container width */
-        padding: 1rem 0; /* Adjust padding to prevent rightward shift */
-        margin: 0 auto; /* Center the column */
-        box-sizing: border-box; /* Include padding in width calculation */
-    }
-    
-    .content {
-        padding: 1.5rem 1rem; /* Reduce side padding on mobile */
-        overflow-x: hidden; /* Prevent horizontal scrolling */
-    }
-}
-
-/* Improve mobile column layout to prevent overlap */
-@media (max-width: 768px) {
-    .content-columns {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem; /* Add space between columns */
-        width: 100% !important;
-    }
-    
-    .column {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0 1rem; /* Consistent padding */
-        margin: 0 !important; /* Remove margins that might cause overlap */
-        box-sizing: border-box;
-    }
-    
-    /* Ensure text doesn't overflow column boundaries */
-    .column p, .column h2 {
-        width: 100%;
-        overflow-wrap: break-word;
-    }
-}
-
-/* Fix column overlap on mobile with top margins */
-@media (max-width: 768px) {
-    .content-columns {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .column {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 1rem;
-        box-sizing: border-box;
-    }
-    
-    /* Add top margin to all columns except the first one */
-    .column + .column {
-        margin-top: 3rem !important;
-    }
-}
-
-.circle-img {
-    padding-left: 15px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 200px; /* Set desired size */
-    height: 200px; /* Must be equal to width for a perfect circle */
-    border-radius: 50%; /* Creates the circle shape */
-    object-fit: cover; /* Ensures image fills the circle without distortion */
-    object-position: center; /* Centers the image within the circle */
-    border: 3px solid #c7ad58; /* Optional: adds a gold border */
-    box-shadow: 
-        0 0 15px 5px rgba(250, 216, 106, 0.8),
-        0 0 30px 10px rgba(250, 216, 106, 0.5);
-    margin-top: 1.5rem; /* Adds space between text and image */
-}
-
 /* Position scrollbar flush with the right edge of the page */
 html {
     direction: ltr;
@@ -2442,6 +2351,8 @@ a:focus-visible {
         width: 150px; /* Smaller on mobile */
         height: 150px;
         aspect-ratio: 1/1; /* Enforce square aspect ratio */
+        position: relative;
+        margin: 0 auto 1.5rem auto; /* Center horizontally with bottom margin */
     }
     
     .legacy-hall-page .image-wrapper img {
@@ -2455,11 +2366,29 @@ a:focus-visible {
     .legacy-hall-page .image-wrapper::before {
         width: 150px; /* Match mobile image size */
         height: 150px;
-        margin-top: -5px; /* Reduced offset for smaller images */
+        left: 50%; /* Center horizontally */
+        top: 50%; /* Center vertically */
+        transform: translate(-50%, -50%); /* Perfect centering */
+        margin: 0; /* Remove any margin offsets */
     }
     
     .legacy-hall-page .image-wrapper:hover::before {
-        margin-top: -5px; /* Match non-hover state */
+        margin: 0; /* Match non-hover state */
+    }
+    
+    /* Ensure proper mobile column layout */
+    .legacy-hall-page .mobile-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .legacy-hall-page .mobile-column h2 {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -2714,144 +2643,6 @@ a:focus-visible {
     
     .header-line + .content-columns {
         margin-top: 1.5rem;
-    }
-}
-
-/* Force center mobile content columns for Legacy Hall page */
-@media (max-width: 768px) {
-    .legacy-hall-page .mobile-content-columns {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 85% !important;
-        margin: 0 auto !important; /* Force center with !important */
-        padding: 0 !important;
-        align-items: center !important; /* Force center alignment */
-        justify-content: center !important;
-        box-sizing: border-box !important;
-        position: relative !important;
-        left: 0 !important; /* Remove any left offset */
-        right: 0 !important;
-    }
-    
-    .legacy-hall-page .mobile-column {
-        width: 100% !important; /* Full width of parent */
-        max-width: 100% !important;
-        margin: 0 0 2rem 0 !important; /* Remove horizontal margins */
-        padding: 0 !important;
-        text-align: center !important;
-        box-sizing: border-box !important;
-    }
-}
-
-/* New dedicated mobile column styles for Legacy Hall page */
-@media (max-width: 768px) {
-    /* Hide default mobile columns on Legacy Hall page */
-    .legacy-hall-page .mobile-content-columns {
-        display: none;
-    }
-    
-    /* Create new Legacy Hall mobile columns */
-    .legacy-hall-page .content-columns {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 85% !important;
-        max-width: 600px !important;
-        margin: 0 auto 3rem auto !important;
-        padding: 0 !important;
-    }
-    
-    .legacy-hall-page .column {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 0 3rem 0 !important;
-        padding: 1rem !important;
-        text-align: center !important;
-    }
-    
-    /* Preserve image formatting */
-    .legacy-hall-page .image-wrapper {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto 1.5rem auto !important;
-    }
-    
-    .legacy-hall-page .column img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-    
-    /* Add dividers between columns */
-    .legacy-hall-page .column:not(:last-child)::after {
-        content: "";
-        display: block;
-        width: 80%;
-        height: 1px;
-        background: linear-gradient(
-            to right,
-            transparent,
-            rgba(254, 229, 133, 0.6),
-            rgba(254, 229, 133, 0.8),
-            rgba(254, 229, 133, 0.6),
-            transparent
-        );
-        margin: 2rem auto 0;
-    }
-}
-
-/* Prevent wrapping on h2 and h3 elements for mobile */
-@media (max-width: 768px) {
-    .legacy-hall-page h3,
-    .legacy-hall-page h2 {
-        white-space: nowrap !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-        width: auto !important;
-        display: inline-block !important;
-    }
-    
-    /* Specific font size adjustments */
-    .legacy-hall-page h3 {
-        font-size: 1rem !important;
-    }
-    
-    .legacy-hall-page h2 {
-        font-size: 1.8rem !important;
-    }
-    
-    /* Center h2 and h3 elements */
-    .legacy-hall-page .header h3,
-    .legacy-hall-page .header h2,
-    .legacy-hall-page .column h2 {
-        text-align: center !important;
-        margin: 0 auto !important;
-    }
-}
-
-/* Highlight all mentions of GAIA in green */
-.legacy-hall-page p span.gaia-green,
-.legacy-hall-page h2 span.gaia-green,
-.legacy-hall-page h3 span.gaia-green {
-    color: #AFE69B !important; /* GAIA green color */
-    font-weight: bold !important;
-}
-
-/* Auto-highlight all GAIA mentions that aren't already wrapped in spans */
-.legacy-hall-page p:not(:has(span.gaia-green)) {
-    color: inherit; /* Keep default text color */
-}
-
-/* Add a subtle text shadow for better visibility */
-.legacy-hall-page .gaia-green {
-    text-shadow: 0 0 5px rgba(175, 230, 155, 0.3) !important;
-}
-
-/* Ensure this works on mobile too */
-@media (max-width: 768px) {
-    .legacy-hall-page p span.gaia-green,
-    .legacy-hall-page h2 span.gaia-green,
-    .legacy-hall-page h3 span.gaia-green {
-        color: #AFE69B !important;
-        font-weight: bold !important;
     }
 }
 
