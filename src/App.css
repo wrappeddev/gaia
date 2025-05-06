@@ -390,16 +390,24 @@ body, #root {
     text-align: center;
     gap: 1rem;
     padding: 1.2rem 1rem;
+    display: flex;
+    justify-content: center;
   }
 
   .legacy-entry-info {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    text-align: center;
   }
 
   .legacy-profile-pic {
     margin-bottom: 0.5rem;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 
   /* Fix for any horizontal overflow */
