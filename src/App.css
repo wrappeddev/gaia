@@ -8,6 +8,16 @@
   --gaia-muted: #e6dca6;
 }
 
+/* Global box-sizing reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body, #root {
   background: var(--gaia-black);
   color: var(--gaia-text);
@@ -15,6 +25,9 @@ body, #root {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 .logo {
@@ -55,8 +68,10 @@ body, #root {
 
 .gaia-background {
   min-height: 100vh;
-  width: 100vw;
-  background: linear-gradient(rgba(10,13,11,0.82), rgba(10,13,11,0.92)), url('https://cdn.gaiaclanglobal.com/homebanner%20(1).jpg') center center / 100vw no-repeat fixed;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(rgba(10,13,11,0.82), rgba(10,13,11,0.92)), url('https://cdn.gaiaclanglobal.com/homebanner%20(1).jpg') center center / cover no-repeat fixed;
   background-blend-mode: darken;
   background-attachment: fixed;
   display: flex;
@@ -64,6 +79,7 @@ body, #root {
   align-items: center;
   padding: 0;
   position: relative;
+  box-sizing: border-box;
 }
 
 .gaia-content-container {
@@ -73,14 +89,15 @@ body, #root {
   border-radius: 1.2rem;
   box-shadow: 0 2px 16px 0 #BFA43A22;
   padding: 2.5rem 2rem 2rem 2rem;
-  max-width: 700px;
-  width: 95vw;
+  max-width: 800px;
+  width: 90%;
   color: var(--gaia-text);
   border: 1px solid var(--gaia-gold-dark);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  box-sizing: border-box;
 }
 
 .gaia-title {
@@ -140,32 +157,39 @@ body, #root {
 }
 
 .gaia-navbar {
-  width: 100vw;
+  width: 100%;
   background: linear-gradient(90deg, rgba(16,22,19,0.92) 80%, rgba(22,20,10,0.92) 100%);
   box-shadow: 0 4px 24px 0 #BFA43A44, 0 1.5px 0 0 var(--gaia-gold);
-  padding: 1.1rem 0 1.1rem 0;
+  padding: 1.1rem 0;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   border-bottom: 2.5px solid var(--gaia-gold);
   border-top: 2px solid var(--gaia-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   min-height: 70px;
-  position: sticky;
-  top: 0;
   box-shadow: 0 4px 24px 0 #BFA43A44, 0 1.5px 0 0 var(--gaia-gold), 0 -8px 24px -8px #FFD70033 inset;
+  box-sizing: border-box;
 }
+
+.gaia-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
 .gaia-navbar-logo {
   font-weight: 900;
   font-size: 1.45rem;
   color: var(--gaia-gold);
   letter-spacing: 0.13em;
-  margin-right: 3rem;
-  margin-left: 2.5rem;
   font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
   text-shadow: 0 2px 16px #FFD70055, 0 2px 8px #10161388;
   user-select: none;
@@ -173,7 +197,8 @@ body, #root {
   letter-spacing: 0.18em;
   filter: drop-shadow(0 0 8px #FFD70066);
 }
-.gaia-navbar ul {
+
+.nav-links {
   display: flex;
   justify-content: center;
   gap: 2.7rem;
@@ -181,6 +206,7 @@ body, #root {
   margin: 0;
   padding: 0;
 }
+
 .gaia-navbar a {
   color: var(--gaia-gold);
   text-decoration: none;
@@ -194,6 +220,7 @@ body, #root {
   display: inline-block;
   background: rgba(191,164,58,0.07);
 }
+
 .gaia-navbar a:hover {
   color: #fff;
   background: var(--gaia-gold);
@@ -201,12 +228,193 @@ body, #root {
   box-shadow: 0 2px 16px 0 #FFD70088, 0 0 0 2px #fff2 inset;
 }
 
+/* Hamburger Menu Styles */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 110;
+  margin-right: 0.5rem;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--gaia-gold);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-menu.open span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-menu.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.open span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile Menu Backdrop */
+.mobile-menu-backdrop {
+  position: fixed;
+  top: 74px; /* Height of navbar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: calc(100vh - 74px);
+  background-color: rgba(10, 13, 11, 0.5);
+  z-index: 80;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out, -webkit-backdrop-filter 0.3s ease-in-out;
+  pointer-events: none;
+  will-change: backdrop-filter, opacity;
+}
+
+.mobile-menu-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Navbar mobile styles */
+  .hamburger-menu {
+    display: flex;
+    position: relative;
+    right: 0;
+  }
+
+  .gaia-navbar-container {
+    padding: 0 1rem;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 74px; /* Height of navbar */
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(16,22,19,0.98);
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 0 1.2rem;
+    border-bottom: 2px solid var(--gaia-gold);
+    box-shadow: 0 4px 24px 0 #BFA43A44;
+    transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 90;
+    box-sizing: border-box;
+  }
+
+  .nav-links.mobile-closed {
+    transform: translateY(-150%);
+    visibility: hidden;
+  }
+
+  .nav-links.mobile-open {
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .gaia-navbar-logo {
+    margin: 0;
+  }
+
+  .gaia-navbar a {
+    width: 85%;
+    text-align: center;
+    padding: 0.4em 0.6em;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gaia-navbar a:hover {
+    box-shadow: 0 2px 12px 0 #FFD70088;
+  }
+
+  .nav-links li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+
+  /* Special handling for the longer "Get to Know Us" link */
+  .get-to-know-link {
+    font-size: 0.95rem;
+    padding: 0.4em 0.5em;
+  }
+
+  /* Content container adjustments */
+  .gaia-content-container,
+  .legacy-hall-container {
+    padding: 1.8rem 1.2rem 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Typography adjustments */
+  .gaia-title {
+    font-size: 1.8rem;
+  }
+
+  .gaia-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  /* Legacy entries adjustments */
+  .legacy-entry {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.2rem 1rem;
+  }
+
+  .legacy-entry-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .legacy-profile-pic {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Fix for any horizontal overflow */
+  body, #root {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+}
+
 .gaia-footer {
-  width: 100vw;
+  width: 100%;
   background: #101613;
   color: var(--gaia-muted);
   text-align: center;
-  padding: 1.1rem 1rem 1.1rem 1rem;
+  padding: 1.1rem 1rem;
   margin-top: auto;
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
@@ -215,6 +423,7 @@ body, #root {
   border-top: 1.5px solid var(--gaia-gold);
   position: relative;
   bottom: 0;
+  box-sizing: border-box;
 }
 .gaia-footer-dev {
   color: var(--gaia-gold);
@@ -300,14 +509,15 @@ body, #root {
   border-radius: 1.2rem;
   box-shadow: 0 2px 16px 0 #BFA43A22;
   padding: 2.5rem 2rem 2rem 2rem;
-  max-width: 900px;
-  width: 98vw;
+  max-width: 1000px;
+  width: 90%;
   color: var(--gaia-text);
   border: 1px solid var(--gaia-gold-dark);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  box-sizing: border-box;
 }
 .legacy-section {
   margin-bottom: 2.5rem;

@@ -1,19 +1,82 @@
 import './App.css'
 import { Routes, Route, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if screen is mobile size on mount and when window resizes
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Initial check
+    checkIfMobile();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const closeMenu = () => setIsMenuOpen(false);
+    document.addEventListener('click', closeMenu);
+
+    return () => document.removeEventListener('click', closeMenu);
+  }, [isMenuOpen]);
+
+  // Toggle menu
+  const toggleMenu = (e) => {
+    e.stopPropagation(); // Prevent immediate closing from document click
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <nav className="gaia-navbar">
-      <span className="gaia-navbar-logo">GAIA</span>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/xbox">Xbox</Link></li>
-        <li><Link to="/playstation">PlayStation</Link></li>
-        <li><Link to="/pc">PC</Link></li>
-        <li><Link to="/legacy">Legacy Hall</Link></li>
-        <li><Link to="/get-to-know-us">Get to Know Us</Link></li>
-      </ul>
-    </nav>
+    <>
+      {/* Backdrop overlay with blur effect - always rendered but conditionally visible */}
+      {isMobile && (
+        <div
+          className={`mobile-menu-backdrop ${isMenuOpen ? 'visible' : ''}`}
+          onClick={() => setIsMenuOpen(false)}
+        ></div>
+      )}
+
+      <nav className="gaia-navbar">
+        <div className="gaia-navbar-container">
+          <span className="gaia-navbar-logo">GAIA</span>
+
+          {/* Hamburger menu button for mobile */}
+          {isMobile && (
+            <button
+              className={`hamburger-menu ${isMenuOpen ? 'open' : ''}`}
+              onClick={toggleMenu}
+              aria-label="Toggle navigation menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          )}
+
+          {/* Navigation links - always visible on desktop, conditionally visible on mobile */}
+          <ul className={`nav-links ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
+            <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
+            <li><Link to="/xbox" onClick={() => setIsMenuOpen(false)}>Xbox</Link></li>
+            <li><Link to="/playstation" onClick={() => setIsMenuOpen(false)}>PlayStation</Link></li>
+            <li><Link to="/pc" onClick={() => setIsMenuOpen(false)}>PC</Link></li>
+            <li><Link to="/legacy" onClick={() => setIsMenuOpen(false)}>Legacy Hall</Link></li>
+            <li><Link to="/get-to-know-us" onClick={() => setIsMenuOpen(false)} className="get-to-know-link">Get to Know Us</Link></li>
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 }
 
